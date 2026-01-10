@@ -1,0 +1,66 @@
+
+
+services:
+  # PostgreSQL
+  db:
+    image: postgres:16-alpine
+    container_name: localchat-db
+    environment:
+      POSTGRES_USER: localchat
+      POSTGRES_PASSWORD: localchat_password
+      POSTGRES_DB: localchat
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U localchat -d localchat"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - localchat-network
+
+  # Backend
+  backend:
+    build: ./backend
+    container_name: localchat-backend
+    environment:
+      DATABASE_URL: postgresql://localchat:localchat_password@db:5432/localchat
+      N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL}
+      N8N_API_KEY: ${N8N_API_KEY}
+      SESSION_SECRET: ${SESSION_SECRET}
+      SESSION_TTL_HOURS: 24
+      LLM_TIMEOUT_MS: 150000
+      FRONTEND_URL: http://localhost:5173
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - localchat-network
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build: ./frontend
+    container_name: localchat-frontend
+    environment:
+      VITE_API_URL: http://backend:3000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - localchat-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  localchat-network:
+    driver: bridge

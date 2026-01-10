@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-bg-app: var(--bg-app);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-card: var(--bg-card);
+  
+  --shadow-glow: var(--shadow-glow);
+  --shadow-glow-hover: var(--shadow-glow-hover);
+}
+
+:root {
+  /* Clean Hi-Tech Palette */
+  --bg-app: #F7F8FA; /* Cool Off-white */
+  --bg-sidebar: #FFFFFF;
+  --bg-card: #FFFFFF;
+  
+  /* Violet/Indigo Gradient Accent */
+  --primary: #6366f1; /* Main Indigo */
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --primary-foreground: #ffffff;
+  
+  /* Text */
+  --text-main: #333333; /* Soft Black */
+  --text-muted: #64748b; /* Cool Gray */
+  
+  /* Shadows */
+  --shadow-glow: 0 4px 20px -2px rgba(99, 102, 241, 0.1); /* Violet glow */
+  --shadow-glow-hover: 0 8px 30px -4px rgba(99, 102, 241, 0.2);
+}
+
+/* Базовые стили */
+body {
+  @apply bg-[var(--bg-app)] text-[var(--text-main)] antialiased font-sans;
+}
+
+/* Стили для скроллбара */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Анимация для индикатора загрузки */
+@keyframes bounce-dots {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+}
+
+.loading-dot {
+  animation: bounce-dots 1.4s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Markdown стили */
+.markdown-content h1 {
+  @apply text-2xl font-bold mt-4 mb-2;
+}
+
+.markdown-content h2 {
+  @apply text-xl font-bold mt-3 mb-2;
+}
+
+.markdown-content h3 {
+  @apply text-lg font-semibold mt-2 mb-1;
+}
+
+.markdown-content p {
+  @apply mb-2;
+}
+
+.markdown-content ul {
+  @apply list-disc list-inside mb-2;
+}
+
+.markdown-content ol {
+  @apply list-decimal list-inside mb-2;
+}
+
+.markdown-content code {
+  @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-content pre {
+  @apply bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto mb-2;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.markdown-content a {
+  @apply text-blue-600 hover:underline;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic text-gray-600 my-2;
+}
