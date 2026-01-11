@@ -155,6 +155,16 @@ git pull origin main
 docker-compose -f docker-compose.prod.yml up -d --build
 ```
 
+### 5. Запуск на поддомене или в подпапке
+
+Если вы хотите запустить приложение не в корне домена (например, `example.com/chat`), добавьте переменную `VITE_BASE_PATH` в ваш `.env` файл перед запуском:
+
+```bash
+VITE_BASE_PATH=/chat/
+```
+
+Приложение автоматически подхватит этот путь при сборке.
+
 ---
 
 Created by Google Antigravity Agent.
