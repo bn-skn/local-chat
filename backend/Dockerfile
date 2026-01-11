@@ -1,16 +1,18 @@
-# Stage 1: Build
-FROM node:20-alpine AS builder
+FROM node:20-alpine
+
 WORKDIR /app
+
+# Копируем файлы зависимостей
 COPY package*.json ./
-RUN npm ci
+
+# Устанавливаем зависимости
+RUN npm install
+
+# Копируем исходный код
 COPY . .
 
-# Stage 2: Production
-FROM node:20-alpine
-WORKDIR /app
-ENV NODE_ENV=production
-COPY package*.json ./
-RUN npm ci --only=production
-COPY --from=builder /app/src ./src
+# Порт
 EXPOSE 3000
-CMD ["node", "src/app.js"]
+
+# Запуск
+CMD ["npm", "run", "dev"]
