@@ -47,7 +47,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
       args:
-        VITE_BASE_PATH: ${VITE_BASE_PATH:-/}
+        VITE_BASE_PATH: /chat
+        VITE_API_URL: /chat/api
     container_name: localchat-frontend-prod
     ports:
       - "${APP_PORT:-5174}:80"
