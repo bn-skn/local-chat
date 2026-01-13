@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtiCortex Server Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #181b21;
+            --text-color: #e0e6ed;
+            --accent-color: #3b82f6; 
+            --accent-hover: #2563eb;
+            --secondary-text: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--secondary-text);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: rgba(24, 27, 33, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(24, 27, 33, 0.8);
+            border-color: rgba(60, 130, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            margin-top: 0.5rem;
+        }
+
+        /* Specific Card Styles */
+        .card.chat:hover { border-color: rgba(16, 185, 129, 0.4); }
+        .card.cyberpanel:hover { border-color: rgba(59, 130, 246, 0.4); }
+        .card.filebrowser:hover { border-color: rgba(245, 158, 11, 0.4); }
+        .card.n8n:hover { border-color: rgba(236, 72, 153, 0.4); }
+        .card.portainer:hover { border-color: rgba(99, 102, 241, 0.4); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>ArtiCortex Server</h1>
+        <p class="subtitle">Centralized Service Hub</p>
+
+        <div class="grid">
+            <!-- Local Chat -->
+            <a href="/chat/" class="card chat">
+                <div class="card-icon">💬</div>
+                <div class="card-title">Local Chat</div>
+                <div class="card-desc">AI-powered internal chat</div>
+            </a>
+
+            <!-- CyberPanel -->
+            <a href="https://cyberpanel16404.hostkey.in:8090" target="_blank" class="card cyberpanel">
+                <div class="card-icon">⚙️</div>
+                <div class="card-title">CyberPanel</div>
+                <div class="card-desc">Hosting Control Panel</div>
+            </a>
+
+            <!-- FileBrowser -->
+            <a href="http://31.192.110.228:8080/files" target="_blank" class="card filebrowser">
+                <div class="card-icon">📂</div>
+                <div class="card-title">File Browser</div>
+                <div class="card-desc">Manage server files</div>
+            </a>
+
+            <!-- Portainer -->
+            <a href="https://31.192.110.228:9443" target="_blank" class="card portainer">
+                <div class="card-icon">🐳</div>
+                <div class="card-title">Portainer</div>
+                <div class="card-desc">Docker container manager</div>
+            </a>
+
+             <!-- n8n -->
+             <a href="http://31.192.110.228:5678" target="_blank" class="card n8n">
+                <div class="card-icon">🔄</div>
+                <div class="card-title">n8n</div>
+                <div class="card-desc">Workflow automation</div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
