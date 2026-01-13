@@ -1,0 +1,5 @@
+# PROXY FOR LOCAL CHAT
+RewriteEngine On
+
+# Redirect /chat to /chat/ (add trailing slash)
+RewriteRule ^chat$ /chat/ [R=301,L]
